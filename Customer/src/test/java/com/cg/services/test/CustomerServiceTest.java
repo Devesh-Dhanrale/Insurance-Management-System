@@ -1,4 +1,4 @@
-package com.cg.servicestest;
+package com.cg.services.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

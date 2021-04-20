@@ -1,4 +1,4 @@
-package com.cg.services;
+package com.cg.services.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,6 +17,8 @@ import com.cg.dao.PersonDAO;
 import com.cg.dao.PersonEligibilityDAO;
 import com.cg.entity.PersonEligibilityEntity;
 import com.cg.entity.PersonEntity;
+import com.cg.services.PersonEligibilityServicesIMP;
+import com.cg.services.PersonServicesIMP;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest

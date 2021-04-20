@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -35,6 +36,8 @@ public class InsuranceCalculatorApplication {
 	@Bean
 	public Docket employeeAPI() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.cg.controller")).build();
+				.apis(RequestHandlerSelectors.basePackage("com.cg.controller")).build()
+				.tags(new Tag("person-controller", "Person Controller has eligibility checker to check eligibility for policy"),
+					  new Tag("person-eligibility-controller", "Person Eligibility Controller has method to get all eligible customers"));
 	}
 }
