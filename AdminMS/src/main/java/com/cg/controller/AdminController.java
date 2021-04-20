@@ -1,4 +1,4 @@
-package com.cg.controllers;
+package com.cg.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +43,7 @@ import io.swagger.annotations.Api;
 @RestController
 @RequestMapping("/admin")
 @Validated
-@Api("An API for Admin Operations....")
+@Api(tags = {"admin-controller"})
 public class AdminController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
@@ -54,25 +54,57 @@ public class AdminController {
 	@Autowired
 	RestTemplate rest;
 
+	/**
+	 Method Name: addPolicy
+	 Input Parameters: Policy policy
+	 Return type: Policy
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Adding policy details
+	 */
 	@PostMapping("/addPolicy")
 	public Policy addPolicy(@Valid @RequestBody Policy policy) {
 		logger.info("In AdminController to add policy");
 		return adminSer.addPolicy(policy);
 	}
 
+	/**
+	 Method Name: getAllPolicy
+	 Input Parameters: 
+	 Return type: Map<Integer,String>
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Retrieving policy details which is used for other in insurance controller
+	 */
 	@GetMapping("/getAllPolicy")
 	public Map<Integer, String> getAllPolicy() {
 		logger.info("In AdminController to retrieve policy using map");
 		return adminSer.getAllPolicy();
 	}
 
+	/**
+	 Method Name: updatePolicy
+	 Input Parameters: Integer policyId, String policyName, String policyDescription, Integer policyDuration, Integer policyCoverage
+	 Return type: Policy
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Update an existing policy details.
+	 */
 	@CrossOrigin
 	@PutMapping(value="/updatePolicy/policyId/{policyId}/policyName/{policyName}/policyDescription/{policyDescription}/policyDuration/{policyDuration}/policyCoverage/{policyCoverage}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public Policy updatePolicy(@PathVariable("policyId") @Valid Integer policyId, @PathVariable("policyName") @Valid String policyName, @PathVariable("policyDescription") @Valid String policyDescription, @PathVariable("policyDuration") @Valid Integer policyDuration, @PathVariable("policyCoverage") @Valid Integer policyCoverage) {
 		logger.info("In AdminController to update policy");
 		return adminSer.updatePolicy(policyId,policyName,policyDescription,policyDuration,policyCoverage);
 	}
-
+	
+	/**
+	 Method Name: removePolicy
+	 Input Parameters: Integer id
+	 Return type: List<Policy>
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Delete an existing policy details.
+	 */
 	@DeleteMapping("/removePolicy/{id}")
 	public List<Policy> removePolicy(@Valid @PathVariable Integer id) throws PolicyNotFoundException {
 		logger.info("In AdminController to remove policy");
@@ -87,6 +119,14 @@ public class AdminController {
 		return policies;
 	}
 
+	/**
+	 Method Name: getPolicyDetails
+	 Input Parameters: 
+	 Return type: List<Policy>
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Get all policy details.
+	 */
 	@GetMapping("/getPolicyDetails")
 	public List<Policy> getPolicyDetails() throws PolicyNotFoundException {
 		logger.info("In AdminController to get all policy details");
@@ -102,6 +142,14 @@ public class AdminController {
 		return policies;
 	}
 
+	/**
+	 Method Name: approveAgent
+	 Input Parameters: AdminAgentApprovalEntity agent
+	 Return type: List<String>
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Approves an agent.
+	 */
 	@GetMapping("/approveAgent")
 	public List<String> approveAgent(AdminAgentApprovalEntity agent) {
 		
@@ -172,12 +220,27 @@ public class AdminController {
 		return li;
 	}
 
+	/**
+	 Method Name: viewAgents
+	 Input Parameters: 
+	 Return type: List<AdminAgentApprovalEntity>
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: View all agents.
+	 */
 	@GetMapping("/viewAgents")
 	public List<AdminAgentApprovalEntity> viewAgents() {
 		return adminSer.viewAgents();
 	}
 
-	//Exception handler for validation constraints
+	/**
+	 Method Name: handleValidationExceptions
+	 Input Parameters: MethodArgumentNotValidException ex
+	 Return type: Map<String, String>
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Exception handler for validation constraints.
+	 */
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {

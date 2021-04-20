@@ -15,9 +15,12 @@ import com.cg.entity.PaymentEntity;
 import com.cg.services.CustomerCredentialsIMP;
 import com.cg.services.PaymentIMP;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/Customer")
 @Validated
+@Api(tags = {"customer-controller"})
 public class CustomerController {
 
 	@Autowired
@@ -28,8 +31,16 @@ public class CustomerController {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
+	/**
+	 Method Name: getPaymentHistory
+	 Input Parameters: Integer login
+	 Return type: List<PaymentEntity>
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Customer can get payment history by login.
+	 */
 	@GetMapping("/getPaymentHistory/{login}/{password}")
-	public List<PaymentEntity> nothing(@PathVariable("login") Integer login,
+	public List<PaymentEntity> getPaymentHistory(@PathVariable("login") Integer login,
 			@PathVariable("password") String password) {
 		String adharNo = null;
 		List<PaymentEntity> p = new ArrayList<>();

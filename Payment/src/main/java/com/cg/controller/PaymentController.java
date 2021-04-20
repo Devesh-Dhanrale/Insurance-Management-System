@@ -18,8 +18,11 @@ import com.cg.entity.PaymentEntity;
 import com.cg.services.CustomerCredentialsIMP;
 import com.cg.services.PaymentIMP;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/Payment")
+@Api(tags = {"payment-controller"})
 public class PaymentController {
 
 	@Autowired
@@ -30,6 +33,14 @@ public class PaymentController {
 
 	private static final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 	
+	/**
+	 Method Name: doPayment
+	 Input Parameters: String adharNo, String fullName, String policyName, int amount, PaymentEntity p 
+	 Return type: String
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Customer can pay for the policy.
+	 */
 	@GetMapping("/process/{adharNo}/{fullName}/{policyName}/{amount}")
 	public String doPayment(@PathVariable("adharNo") @Valid String adharNo,
 			@PathVariable("fullName") String fullName, @PathVariable("policyName") String policyName,
@@ -77,6 +88,14 @@ public class PaymentController {
 
 	}
 	
+	/**
+	 Method Name: addPaymentEntity
+	 Input Parameters: PaymentEntity p 
+	 Return type: PaymentEntity
+	 Author: Capgemini
+	 Creation Date: 19-04-2021
+	 Description: Add payment entity to database.
+	 */
 	public PaymentEntity addPaymentEntity(PaymentEntity p) {
         return imp.addPaymentEntity(p);
 	}
